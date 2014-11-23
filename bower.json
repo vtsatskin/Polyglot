@@ -1,0 +1,21 @@
+{
+  "name": "Polyglot",
+  "version": "0.0.0",
+  "authors": [
+    "Valentin Tsatskin <val@valtsatskin.com>"
+  ],
+  "description": "shit",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}
