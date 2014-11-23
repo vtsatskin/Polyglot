@@ -42,8 +42,18 @@ function beginTranslate(sourceLang, destLang) {
   };
 
   recognition.onend = function() {
-    console.log("recognition stopped:", final_transcript);
-    var url = "https://www.googleapis.com/language/translate/v2?key=AIzaSyBPPtGtiBSGYWPUFcBHXg-7afORDsgE7F4&q=" + encodeURIComponent(final_transcript) + "&source=" + translateMap[sourceLang] + "&target=" + translateMap[destLang];
+    console.log("recognition stopped");
+    beginTranslate(sourceLang, destLang);
+  };
+
+  recognition.onresult = function(event) {
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        translated = event.results[i][0].transcript;
+      }
+    }
+    console.log("repsonse: ", translated);
+    var url = "https://www.googleapis.com/language/translate/v2?key=AIzaSyBPPtGtiBSGYWPUFcBHXg-7afORDsgE7F4&q=" + encodeURIComponent(translated) + "&source=" + translateMap[sourceLang] + "&target=" + translateMap[destLang];
     $.get(url, function( data ) {
       console.log(data);
       var translated = data.data.translations[0].translatedText;
@@ -53,19 +63,6 @@ function beginTranslate(sourceLang, destLang) {
     });
   };
 
-  recognition.onresult = function(event) {
-    for (var i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        final_transcript += event.results[i][0].transcript;
-      }
-    }
-  };
-
-  if(started) {
-    recognition.stop();
-  } else {
     recognition.start();
-  }
-
-  started = !started;
+    window.setTimeout(function() { recognition.stop(); }, 2000);
 }
