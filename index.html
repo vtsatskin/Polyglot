@@ -6,17 +6,32 @@
   <style>
     body {
       text-align: center;
+      background: url(bg.jpg) no-repeat center center fixed;
+      background-size: cover;
     }
     button {
       font-size: 3em;
       padding: 1em;
       width: 300px;
-      background: #333;
+      background: whitesmoke;
       border: none;
-      color: #FFF;
+      color: #555;
       border-radius: 10px;
       margin: 0 0.5em;
       margin-top: 5em;
+      outline: none;
+    }
+
+    @-webkit-keyframes greenPulse {
+      from { background-color: whitesmoke; -webkit-box-shadow: 0 0 9px #fff; }
+      50% { background-color: rgb(175, 240, 255); -webkit-box-shadow: 0 0 18px rgb(117, 195, 213); }
+      to { background-color: whitesmoke; -webkit-box-shadow: 0 0 9px #fff; }
+    }
+
+    button:focus {
+      -webkit-animation-name: greenPulse;
+      -webkit-animation-duration: 2s;
+      -webkit-animation-iteration-count: infinite;
     }
   </style>
 </head>
